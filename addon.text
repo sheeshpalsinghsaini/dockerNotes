@@ -1,0 +1,29 @@
+# In earler, one application run on one server 
+
+    this problem solve by virtual machine concepts.
+
+    each virtual machine occupie dedicated resources.
+
+    so this problem is resolve by container.
+
+=====================================================================================
+
+
+
+
+            App1     |   App2    |    App3 
+                     |           |
+            bin/lib  |  bin/lib  |   bin/lib 
+            --------------------------------
+                    Container Engine 
+            --------------------------------
+                    Operating System
+            --------------------------------
+                    Infrastructure
+            --------------------------------
+
+
+
+
+Note : docker is a company which provide facility of contanerization.
+
