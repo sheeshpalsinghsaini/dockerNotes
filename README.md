@@ -52,6 +52,7 @@
 
 
 ##  What is container 
+        - Running image in memory called continer.
 
      -------
     | image | =======> single file with all the deps and config required to run a program.
@@ -248,3 +249,140 @@ docker exec -i -t containerId  sh           //inside in container.
 
 
 ctrl +d   // exit.
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+* Dockerfile, Image and Container
+
+    Dockerfile 
+        Text document which contains all the commands that a user can call on the command line to assemble 
+        an image.
+
+    Docker Image 
+        Template to create docker container. [ just like a class of an object in oops programming ]
+
+
+    Docker Container 
+        Running instance of the docker image. Containers hold entire package to run application.
+        [ running image is a container ]
+
+
+
+    Ex:
+        DockerFile --------> DockerImage -----------> DockerContainer
+
+
+
+
+## Docker Commands 
+
+    1. Docker version
+
+    2. Docker pull <dockerImageName> : download docker image from docker hub
+        Docker pull mysql
+        Docker pull tomcat
+        Docker pull openjdk
+        docker pull openjdk:11
+        docker pull python:3
+    3. Docker images : show all available images in local
+
+    4. docker search <imageName> : will search image
+
+    5. docker ps : show all running containers
+
+    6. docker ps -a : show all running and exit containers.
+
+    7. docker run --env MYSQL_ROOT_PASSWORD      : to provide environment property 
+
+    8. docker run --name pythonContainer -d  python      : will return container id
+                                          \_ use for detach mode
+    
+    9. docker run --name pythonContainer_01 -it -d python       : now container will run in background.
+                                              \_ interactive mode
+
+    10. docker exec -it <containerId> python3       : now we will be inside container with python shall.
+        docker exec -it 26f9cf0e5101 python3
+
+    11. exit()      : exit from python container.
+
+    12. docker inspect <containerId> : will show all details about container.
+
+    13. docker run --name javaContainer -it -d openjdk  : run openjdk container
+
+        CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS         PORTS     NAMES
+        9215cc3d8e98   openjdk   "jshell"    5 seconds ago   Up 4 seconds             javaContainer
+        26f9cf0e5101   python    "python3"   7 minutes ago   Up 7 minutes             pythonContainer_01
+                                    |
+                                     \_ command which we have to exe for run inside container.
+
+
+    14. docker exec -it 9215cc3d8e98 jshell
+        /exit   : exit from openJDK contianer.
+
+    15. docker run --name mysqlDB -e MYSQL_ROOT_PASSWORD=root -d mysql  : running mysqlDB[name of container] container.
+
+        docker exec -it mysqlDB bash
+        mysql -p : provide mysql password, which provide at the time of creating container.
+        jdbc:mysql://db:3306/DATABASE-NAME  : jdbc:mysql://mysqlDB:3306/DATABASE-NAME.
+                     |
+                      \_ mysql Container name.
+
+    16. docker run --name nginxServer -d -p 8080:80 nginx 
+                                            |     |
+                                            |      \_Container port  mapping.
+                                             \_ System port
+
+    17. docker run --name httpdServer -d -p 8081:80 httpd
+
+    18. docker stop 68b4bbadcd89  : will stop docker-container of given id
+
+    19. docker rm 68b4bbadcd89 bde4ec37d1a7 : remove past showing running container.[ docker ps -a ]
+
+    20. docker rmi openjdk:11   : remove docker image.
+
+    21. docker restart <containerId or name> : restart container, will run stop container.
+
+    22. docker login : docker hub login, so we can push
+
+    23. docker commit : save the image edited or created in local system.
+
+    24. docker push : push docker image to docker hub
+
+    25. docker copy
+     
+    26. docker log <containerName>
+
+    27. docker volume : create docker volume to store data for docker container.
+
+    28. docker logout : logout from docker hub
+
+
+
+
+
+----------------------------------------------------
+
+## create our own docker image.
+
+
+    
+    1. create ubuntu docker image 
+        docker build -t myubuntuimage .  [ using current folder]
+
+    2. docker run --name myUbuntuContainer_01 myubuntuimage : running creating docker image
+
+-------------------
+    docker build -t myjavaproject .
+    docker run --name javaProject myjavaproject
+
+-------------------
+
+    docker run --name springBootProject -it -d bootimage
+
+
+Note : docker logs springBootProject => for check logs
